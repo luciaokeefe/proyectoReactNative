@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
 import React, {Component} from 'react'
 import Login from '../screens/Login/Login'
+import Register from '../screens/Register/Register'
 import TabNavigation from './TabNavigation'
 import { auth } from '../firebase/config'
 
@@ -31,12 +32,13 @@ class MainNavigation extends Component {
                    <Stack.Screen 
                       name='Login' 
                       component={Login}
-                      options={{
-                          headerShown:false
-                        }}
+                     
                     /> 
+                    <Stack.Screen 
+                      name='Register' //esto muestra por default el header 
+                      component={Register}
+                      />
                  
-                    
                   <Stack.Screen
                       name='TabNavigation' //identifica al elemento navegable
                       component={TabNavigation} //que pantalla va a mostrar 

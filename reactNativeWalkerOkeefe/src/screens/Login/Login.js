@@ -7,15 +7,15 @@ class Login extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            mail: '', 
+            email: '', 
             password: '', 
             logueado: false 
     
         }
     }
 
-    loguear(mail, password){
-        auth.signInWithEmailAndPassword(mail, password)
+    loguear(email, pass){
+        auth.signInWithEmailAndPassword(email, pass)
         .then( resp => this.props.navigation.navigate('TabNavigation'))
         .catch(err => console.log(err))
     }
@@ -35,9 +35,9 @@ class Login extends Component {
             <View>
                 <TextInput
                  style={ styles.input}
-                 onChangeText={ text => this.setState( {mail:text} )}
-                 placeholder='Ingresa tu mail'
-                 value={this.state.mail}
+                 onChangeText={ text => this.setState( {email:text} )}
+                 placeholder='Ingresa tu email'
+                 value={this.state.email}
                 />
                 <TextInput
                  style={ styles.input} 
@@ -46,7 +46,7 @@ class Login extends Component {
                  value={this.state.password}
                 />
                 <View>
-                    <TouchableOpacity onPress={()=> this.loguear(this.state.mail, this.state.password)}>
+                    <TouchableOpacity onPress={()=> this.loguear(this.state.email, this.state.password)}>
                         <Text>Loguearme</Text>
                     </TouchableOpacity>
                 </View>
