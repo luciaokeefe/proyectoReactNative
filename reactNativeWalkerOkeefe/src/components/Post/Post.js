@@ -1,7 +1,8 @@
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React, { Component } from 'react'
 import {db, auth} from '../../firebase/config'
 import firebase from 'firebase'
+
 // import {FontAwesome} from '@expo/vector-icons'
 
 class Post extends Component {
@@ -57,6 +58,12 @@ class Post extends Component {
   render() {
     return (
       <View style={styles.container}>
+        
+        <View >
+        <Image style={styles.image} 
+                source={{uri: this.props.data.foto}}
+                resizeMode='contain'/>
+          </View>
         <View>
             <Text style={styles.subtitle}>Descripcion:</Text>
             <Text>{this.props.data.description}</Text>
@@ -85,18 +92,63 @@ class Post extends Component {
 
 const styles = StyleSheet.create({
     container:{
-        flexDirection: 'row',
-        paddingHorizontal:10,
-        paddingVertical:16,
+        flexDirection: 'column',
+        padding: 40,
         justifyContent:'space-between',
-        marginVertical:16,
-        marginHorizontal:10,
-        borderWidth:.5,
-        borderRadius:10
+        alignItems:'center',
+        margin: 50,
+        marginBottom: 10,
+        backgroundColor: 'white',
+        marginTop: 20,
+        flex: 1,
+        borderWidth: 3,
+        borderRadius: 10,
+
+    
     },
+    
+    container1:{
+        justifyContent: 'left',
+        backgroundColor: 'white',
+        color: 'black',
+        marginBottom: 30,
+        width: '100%',
+    },
+
+    container2:{
+        flex:3,
+        margintop: 50,
+        
+    },
+
+    // foto:{
+    //     marginTop:50,
+    //     height:200,
+    //     width:200
+    // },
+
     subtitle:{
         fontWeight:700,
-    }
+        color: 'black',
+
+    },
+    image:{
+        height: 265,
+        width: 100000,
+        border: 'black',
+
+        
+    },
+
+    agregar:{
+        color: 'black',
+    },
+
+    descripcion:{
+        color: 'black',
+    },
+    
+
 })
 
 export default Post

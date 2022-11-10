@@ -1,7 +1,7 @@
 import { Text, View, TextInput, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import {db, auth} from '../../firebase/config'
-//import Camara from '../../components/Camara/Camara'
+import Camara from '../../components/Camara/Camara'
 
 class Posts extends Component {
   
@@ -9,8 +9,8 @@ class Posts extends Component {
         super()
         this.state={
             description:'',
-            // mostrarCamara:true,
-            // fotoUrl:''
+            mostrarCamara:true,
+            fotoUrl:''
         }
     }
 
@@ -21,26 +21,26 @@ class Posts extends Component {
             description: text,
             likes:[],
             comments:[],
-            // foto: this.state.fotoUrl
+            foto: this.state.fotoUrl
         })
 
      }
 
-//     cuandoSubaLaFoto(url){
-//         this.setState({
-//             fotoUrl:url,
-//             mostrarCamara:false
-//         })
-//     }
+    cuandoSubaLaFoto(url){
+        this.setState({
+            fotoUrl:url,
+            mostrarCamara:false
+        })
+    }
   
     render() {
         return (
         <View style={styles.container}>
             {
-                // this.state.mostrarCamara ?
-                // <Camara
-                // cuandoSubaLaFoto={(url)=> this.cuandoSubaLaFoto(url)}
-                // /> :
+                this.state.mostrarCamara ?
+                <Camara
+                cuandoSubaLaFoto={(url)=> this.cuandoSubaLaFoto(url)}
+                /> :
                 <>
                     <TextInput
                     placeholder='Deja tu descripcion'

@@ -14,7 +14,7 @@ class Home extends Component {
     //where recibe 3 parametros 1)que propiedad del documento tiene que buscar 2)el criterio de comparacion 3) el texto que tiene que buscar
     //OnSnapshot() entregará un array de documentos que deberemos recorrer para extraer los datos de cada documento con el método data(). 
     componentDidMount(){
-        db.collection('posts').where('owner', '==', auth.currentUser.email).limit(5).onSnapshot(docs => {
+        db.collection('posts').where('owner', '==', auth.currentUser.email).limit(50).onSnapshot(docs => {
             let posteos = []
             docs.forEach(doc => {
                 posteos.push({
