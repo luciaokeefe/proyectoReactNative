@@ -44,6 +44,7 @@ class Login extends Component {
                  onChangeText={ text => this.setState( {password:text} )}
                  placeholder='Ingresa tu contraseña'
                  value={this.state.password}
+                 secureTextEntry= {true}
                 />
                 <View>
                     <TouchableOpacity onPress={()=> this.loguear(this.state.email, this.state.password)}>
