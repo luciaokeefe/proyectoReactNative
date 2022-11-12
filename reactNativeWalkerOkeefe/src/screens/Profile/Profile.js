@@ -1,4 +1,4 @@
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 
@@ -43,14 +43,22 @@ class Profile extends Component {
 
     render() {
         return (
-        <View>
+        <> 
+        <View >
             <Text>Profile</Text>
             <TouchableOpacity onPress={()=> this.signOut()}>
                 <Text>Cerrar sesión</Text>
             </TouchableOpacity>
         </View>
+        </>
         )
     }
 }
 
+const styles = StyleSheet.create({
+container: {
+    backgroundColor: 'rgba(130,40,98,0.23)'
+}
+
+})
 export default Profile

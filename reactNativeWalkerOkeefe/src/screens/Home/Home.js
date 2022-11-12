@@ -35,7 +35,7 @@ class Home extends Component {
         style={styles.container}
         >
             <Text>HOME</Text>
-            <FlatList
+            <FlatList style={styles.flatList}
                 data={this.state.allPosts}
                 keyExtractor={(item)=> item.id.toString()}
                 renderItem={({item}) => <Post  id={item.id} data={item.data} />}
@@ -50,6 +50,11 @@ class Home extends Component {
 const styles = StyleSheet.create({
     container:{
         flex:1
+        
+    },
+
+    flatList: { 
+        backgroundColor: 'rgba(130,40,98,0.23)'
     }
 })
 

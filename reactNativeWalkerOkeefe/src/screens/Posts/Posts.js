@@ -62,10 +62,13 @@ class Posts extends Component {
 const styles = StyleSheet.create({
     container:{
         flex:1
+        
+        
     },
     input:{
         height:32,
         borderWidth:1
+        
     }
 })
 export default Posts
