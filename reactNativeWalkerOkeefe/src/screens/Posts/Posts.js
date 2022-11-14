@@ -23,6 +23,9 @@ class Posts extends Component {
             comments:[],
             foto: this.state.fotoUrl
         })
+        .then(() => this.props.navigation.navigate('Home'))
+        .catch(err => this.setState({ error: err.message })) 
+
 
      }
 
@@ -51,8 +54,9 @@ class Posts extends Component {
                     />
                     <TouchableOpacity onPress={()=> this.enviarPost(this.state.description)}>
                         <Text>Enviar posts</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> 
                 </>
+                //falta volver para atras 
             }
         </View>
         )
