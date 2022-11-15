@@ -73,7 +73,7 @@ class Camara extends Component {
                 <TouchableOpacity onPress={()=> this.aceptarFoto(this.state.fotoUri)}>
                     <Text>Aceptar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Posts')} >
                     <Text>Rechazar</Text>
                 </TouchableOpacity>
             </> :

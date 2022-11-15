@@ -38,7 +38,7 @@ class Home extends Component {
             <FlatList style={styles.flatList}
                 data={this.state.allPosts}
                 keyExtractor={(item)=> item.id.toString()}
-                renderItem={({item}) => <Post  id={item.id} data={item.data} />}
+                renderItem={({item}) => <Post {...this.props} id={item.id} data={item.data} />} //Spread operator para pasarle las props de navegacion y poder navegar hacia comentarios desde post.
             />
         </View>
         )
