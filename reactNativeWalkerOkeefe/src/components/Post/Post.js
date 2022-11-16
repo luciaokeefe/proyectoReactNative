@@ -1,132 +1,166 @@
 import { Text, View, TouchableOpacity, StyleSheet, Image } from 'react-native'
 import React, { Component } from 'react'
-import {db, auth} from '../../firebase/config'
+import { db, auth } from '../../firebase/config'
 import firebase from 'firebase'
-import {FontAwesome} from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
 
 class Post extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
         this.state = {
             miPosteo: false,
             miLike: false,
-            contadorLikes: props.data.likes.length
+            contadorLikes: props.data.likes.length,
+            losComments: props.data.comments.length,
+            
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         let miLike = this.props.data.likes.includes(auth.currentUser.email)
-        if(miLike){
+        if (miLike) {
             this.setState({
-                miLike:true
+                miLike: true
             })
         }
-        if(this.props.data.owner === auth.currentUser.email){
+        if (this.props.data.owner === auth.currentUser.email) {
             this.setState({
                 miPosteo: true,
             })
-        }}
-    
-        like(){
-            db.collection('posts') .doc(this.props.id)
+        }
+    }
+
+    like() {
+        db.collection('posts').doc(this.props.id)
             .update({
                 likes: firebase.firestore.FieldValue.arrayUnion(auth.currentUser.email)
             })
             .then(resp => {
                 this.setState({
-                    miLike:true,
+                    miLike: true,
                     contadorLikes: this.state.contadorLikes + 1
                 })
             })
-            .catch(err=> console.log(err))
-        }
+            .catch(err => console.log(err))
+    }
 
-        dislike(){
-            db.collection('posts').doc(this.props.id)
+    dislike() {
+        db.collection('posts').doc(this.props.id)
             .update({
                 likes: firebase.firestore.FieldValue.arrayRemove(auth.currentUser.email)
             })
             .then(resp => {
                 this.setState({
-                    miLike:false,
+                    miLike: false,
                     contadorLikes: this.state.contadorLikes - 1
                 })
             })
             .catch(err => console.log(err))
-        }
+    }
 
-        eliminarPost(){
-            db.collection('posts')
+    eliminarPost() {
+        db.collection('posts')
             .doc(this.props.id) // con .doc identificamos el documento que vamos a modificar
             .delete()
-            .then(()=> {this.props.navigation.navigate('Home')})
-            .catch(err=> console.log(err))
-        }
-
-   
-  render() {
-    return (
-      <View style={styles.container}>
-        
-        <View >
-        <Image style={styles.image} 
-                source={{uri: this.props.data.foto}}
-                resizeMode='contain'/>
-          </View>
-        <View>
-            {this.props.data.comment == null ? 
-                <><Text style={styles.subtitle}>Comentarios:</Text>
-                <Text>{this.props.data.comment}</Text></>  :
-
-                 <text style={styles.subtitle} > Publicación sin descripción!</text>
-
-            
-            }
-        </View>
+            .then(() => { this.props.navigation.navigate('Home') })
+            .catch(err => console.log(err))
+    }
 
 
-        <View>
-            <Text>{this.state.contadorLikes}</Text>
-        {
-            this.state.miLike ?
-                <TouchableOpacity onPress={()=> this.dislike()}>
-                    <FontAwesome name='heart' color='red' size={32} />
-                </TouchableOpacity>
-            :
-                <TouchableOpacity onPress={()=> this.like()}>
-                    <FontAwesome name='heart-o' color='red' size={32} />
-                </TouchableOpacity>
-        }
-        <TouchableOpacity onPress={()=> this.props.navigation.navigate('Comments')}>
-            <Text>Agregar comentario</Text>
+    render() {
+        return (
+            <View style={styles.container}>
+
+                <View >
+                    <Image style={styles.image}
+                        source={{ uri: this.props.data.foto }}
+                        resizeMode='contain' />
+                </View>
+
+                <View style={styles.container4}>
+                    <View>
+                        <Text style={styles.subtitle}>Descripcion: {this.props.data.description}</Text>
+                    </View>
+                </View>
+                
+                {/* <View>
+                    {this.props.data.comment == null ?
+                        <><Text style={styles.subtitle}>Comentarios:</Text>
+                            <Text>{this.props.data.comment}</Text></> :
+
+                        <text style={styles.subtitle} > No hay comentarios </text>
+                    }
+                </View> */}
+
+
+                <View>
+                    <Text>{this.state.contadorLikes}</Text>
+                    {
+                        this.state.miLike ?
+                            <TouchableOpacity onPress={() => this.dislike()}>
+                                <FontAwesome name='heart' color='red' size={32} />
+                            </TouchableOpacity>
+                            :
+                            <TouchableOpacity onPress={() => this.like()}>
+                                <FontAwesome name='heart-o' color='red' size={32} />
+                            </TouchableOpacity>
+                    }
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments')}>
+                        <Text>Agregar comentario</Text>
+                    </TouchableOpacity>
+
+                </View>
+                {/* <View style={styles.comment} >
+        <TouchableOpacity onPress={()=> this.props.navigation.navigate (
+                'Comments',
+                {id:this.props.id}
+                )}>
+            <FontAwesome name='comment' size={32} />
+
         </TouchableOpacity>
-       
-        </View>
-        
-        <View>
-            { 
-            this.state.miPosteo ?
-            <TouchableOpacity onPress={()=> this.eliminarPost()}>
-            <Text style={styles.agregar}>BORRAR POSTEO</Text>
-            </TouchableOpacity> : ''
-            }
-        </View>
-        
-      </View>
-    )
-  }
+        </View> */}
+
+
+                <View style={styles.comment}>
+                    {
+                        this.state.losComments >= 1 ?
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate(
+                                'Comments',
+                                { id: this.props.id }
+                            )}>
+                                <Text style={styles.comentario}>ver los {this.state.losComments} comentarios</Text>
+
+                            </TouchableOpacity> :
+
+                            <Text style={styles.comentario}>Aun no hay comentarios</Text>
+
+                    }
+                </View>
+
+                <View>
+                    {
+                        this.state.miPosteo ?
+                            <TouchableOpacity onPress={() => this.eliminarPost()}>
+                                <Text style={styles.agregar}>BORRAR POSTEO</Text>
+                            </TouchableOpacity> : ''
+                    }
+                </View>
+
+            </View>
+        )
+    }
 }
 
 
 
 
 const styles = StyleSheet.create({
-    container:{
+    container: {
         flexDirection: 'column',
         padding: 40,
-        justifyContent:'space-between',
-        alignItems:'center',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         margin: 50,
         marginBottom: 10,
         backgroundColor: 'white',
@@ -136,8 +170,8 @@ const styles = StyleSheet.create({
 
 
     },
-    
-    container1:{
+
+    container1: {
         justifyContent: 'left',
         backgroundColor: 'white',
         color: 'black',
@@ -145,10 +179,10 @@ const styles = StyleSheet.create({
         width: '100%',
     },
 
-    container2:{
-        flex:3,
+    container2: {
+        flex: 3,
         margintop: 50,
-        
+
     },
 
     // foto:{
@@ -157,27 +191,27 @@ const styles = StyleSheet.create({
     //     width:200
     // },
 
-    subtitle:{
-        fontWeight:700,
+    subtitle: {
+        fontWeight: 700,
         color: 'black',
 
     },
-    image:{
+    image: {
         height: 400,
         width: 400,
         border: 'black',
 
-        
+
     },
 
-    agregar:{
+    agregar: {
         color: 'black',
     },
 
-    descripcion:{
+    descripcion: {
         color: 'black',
     },
-    
+
 
 })
 
