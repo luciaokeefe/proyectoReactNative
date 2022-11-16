@@ -5,8 +5,8 @@ import { db, auth } from '../../firebase/config'
 
 class Profile extends Component {
 
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.state={
             comments:[],
             loading:true
@@ -48,6 +48,10 @@ class Profile extends Component {
         <> 
         <View >
             <Text>Profile</Text>
+
+            
+
+
             <TouchableOpacity onPress={()=> this.signOut()}>
                 <Text>Cerrar sesión</Text>
             </TouchableOpacity>

@@ -4,8 +4,8 @@ import {Camera} from 'expo-camera'
 import {storage} from '../../firebase/config'
 
 class Camara extends Component {
-    constructor(){
-        super()
+    constructor(props){
+        super(props)
         this.metodosDeCamara = null
         this.state = {
             mostrarCamara:false,
@@ -73,9 +73,10 @@ class Camara extends Component {
                 <TouchableOpacity onPress={()=> this.aceptarFoto(this.state.fotoUri)}>
                     <Text>Aceptar</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=> this.props.navigation.navigate('Posts')} >
-                    <Text>Rechazar</Text>
-                </TouchableOpacity>
+                {/* <TouchableOpacity onPress={()=> this.props.navigation.navigate('Home')} >  
+            
+                    <Text>Rechazar</Text> 
+                </TouchableOpacity> */}
             </> :
             <Text>No tienes permiso para usar la Camara</Text>
         }

@@ -13,20 +13,25 @@ class Home extends Component {
 
     //where recibe 3 parametros 1)que propiedad del documento tiene que buscar 2)el criterio de comparacion 3) el texto que tiene que buscar
     //OnSnapshot() entregará un array de documentos que deberemos recorrer para extraer los datos de cada documento con el método data(). 
-    componentDidMount(){
-        db.collection('posts').where('owner', '==', auth.currentUser.email).limit(50).onSnapshot(docs => {
+    
+    
+    componentDidMount(){ 
+        db.collection('posts')
+        .where('owner', '==', auth.currentUser.email).limit(50).onSnapshot(docs => {
             let posteos = []
             docs.forEach(doc => {
                 posteos.push({
                     id: doc.id,
                     data:doc.data()
                 })
-            })
+            }) 
+        //acá en algun lado hay que poner un order by que corresponda al momento en el que se subió el post 
 
             this.setState({
                 allPosts: posteos
             })
         })
+
     }
   
     render() {
@@ -34,7 +39,6 @@ class Home extends Component {
         <View 
         style={styles.container}
         >
-            <Text>HOME</Text>
             <FlatList style={styles.flatList}
                 data={this.state.allPosts}
                 keyExtractor={(item)=> item.id.toString()}

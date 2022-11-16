@@ -60,7 +60,7 @@ class Post extends Component {
             db.collection('posts')
             .doc(this.props.id) // con .doc identificamos el documento que vamos a modificar
             .delete()
-            .then(()=> {this.props.navigation.navigate('Profile')})
+            .then(()=> {this.props.navigation.navigate('Home')})
             .catch(err=> console.log(err))
         }
 
@@ -75,9 +75,17 @@ class Post extends Component {
                 resizeMode='contain'/>
           </View>
         <View>
-            <Text style={styles.subtitle}>Descripcion:</Text>
-            <Text>{this.props.data.description}</Text>
+            {this.props.data.comment == null ? 
+                <><Text style={styles.subtitle}>Comentarios:</Text>
+                <Text>{this.props.data.comment}</Text></>  :
+
+                 <text style={styles.subtitle} > Publicación sin descripción!</text>
+
+            
+            }
         </View>
+
+
         <View>
             <Text>{this.state.contadorLikes}</Text>
         {
@@ -124,10 +132,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         marginTop: 20,
         flex: 1,
-        borderWidth: 3,
         borderRadius: 10,
 
-    
+
     },
     
     container1:{
@@ -156,8 +163,8 @@ const styles = StyleSheet.create({
 
     },
     image:{
-        height: 265,
-        width: 100000,
+        height: 400,
+        width: 400,
         border: 'black',
 
         
