@@ -47,6 +47,12 @@ class Camara extends Component {
         .catch(err => console.log(err))
     }
 
+    rechazarFoto(){
+        this.setState({
+            fotoUri:'', 
+            mostrarCamara:true
+        })
+    }
 
   render() {
     return (
@@ -73,10 +79,9 @@ class Camara extends Component {
                 <TouchableOpacity onPress={()=> this.aceptarFoto(this.state.fotoUri)}>
                     <Text>Aceptar</Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity onPress={()=> this.props.navigation.navigate('Home')} >  
-            
+                 <TouchableOpacity onPress={()=> this.rechazarFoto(this.state.fotoUri)} >  
                     <Text>Rechazar</Text> 
-                </TouchableOpacity> */}
+                </TouchableOpacity> 
             </> :
             <Text>No tienes permiso para usar la Camara</Text>
         }

@@ -12,7 +12,7 @@ class Post extends Component {
             miPosteo: false,
             miLike: false,
             contadorLikes: props.data.likes.length,
-            losComments: props.data.comments.length,
+          
             
         }
     }
@@ -84,14 +84,6 @@ class Post extends Component {
                     </View>
                 </View>
                 
-                {/* <View>
-                    {this.props.data.comment == null ?
-                        <><Text style={styles.subtitle}>Comentarios:</Text>
-                            <Text>{this.props.data.comment}</Text></> :
-
-                        <text style={styles.subtitle} > No hay comentarios </text>
-                    }
-                </View> */}
 
 
                 <View>
@@ -106,37 +98,12 @@ class Post extends Component {
                                 <FontAwesome name='heart-o' color='red' size={32} />
                             </TouchableOpacity>
                     }
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments')}>
-                        <Text>Agregar comentario</Text>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', {id: this.props.id})}>
+                    <FontAwesome name="comments" size={24} color="black" />
                     </TouchableOpacity>
 
                 </View>
-                {/* <View style={styles.comment} >
-        <TouchableOpacity onPress={()=> this.props.navigation.navigate (
-                'Comments',
-                {id:this.props.id}
-                )}>
-            <FontAwesome name='comment' size={32} />
-
-        </TouchableOpacity>
-        </View> */}
-
-
-                <View style={styles.comment}>
-                    {
-                        this.state.losComments >= 1 ?
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate(
-                                'Comments',
-                                { id: this.props.id }
-                            )}>
-                                <Text style={styles.comentario}>ver los {this.state.losComments} comentarios</Text>
-
-                            </TouchableOpacity> :
-
-                            <Text style={styles.comentario}>Aun no hay comentarios</Text>
-
-                    }
-                </View>
+               
 
                 <View>
                     {

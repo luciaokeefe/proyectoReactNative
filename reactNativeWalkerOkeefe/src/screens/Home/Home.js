@@ -17,7 +17,7 @@ class Home extends Component {
     
     componentDidMount(){ 
         db.collection('posts')
-        .where('owner', '==', auth.currentUser.email).limit(50).onSnapshot(docs => {
+        .orderBy('createdAt', 'desc').limit(50).onSnapshot(docs => {
             let posteos = []
             docs.forEach(doc => {
                 posteos.push({
@@ -25,8 +25,7 @@ class Home extends Component {
                     data:doc.data()
                 })
             }) 
-        //acá en algun lado hay que poner un order by que corresponda al momento en el que se subió el post 
-
+       
             this.setState({
                 allPosts: posteos
             })
@@ -48,8 +47,6 @@ class Home extends Component {
         )
     }
 }
-
-//navigation={this.props.navigation}
 
 const styles = StyleSheet.create({
     container:{

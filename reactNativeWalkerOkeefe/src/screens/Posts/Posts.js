@@ -18,7 +18,7 @@ class Posts extends Component {
         db.collection('posts').add({
             owner:auth.currentUser.email,
             createdAt: Date.now(),
-            comment: text,
+            description: text,
             likes:[],
             comments:[],
             foto: this.state.fotoUrl
@@ -47,12 +47,12 @@ class Posts extends Component {
                 <>
                     <TextInput
                     placeholder='Deja tu descripcion'
-                    onChangeText={text => this.setState({comment: text})}
-                    value={this.state.comment}
+                    onChangeText={text => this.setState({description: text})}
+                    value={this.state.description}
                     keyboardType='default'
                     style={styles.input}
                     />
-                    <TouchableOpacity onPress={()=> this.enviarPost(this.state.comment)}>
+                    <TouchableOpacity onPress={()=> this.enviarPost(this.state.description)}>
                         <Text>Enviar posts</Text>
                     </TouchableOpacity> 
                 </>

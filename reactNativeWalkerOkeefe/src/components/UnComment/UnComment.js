@@ -4,7 +4,7 @@ import {auth} from "../../firebase/config"
 import firebase from 'firebase'
 import Comments from '../../screens/Comments/Comments'
 
-class CommentsComp extends Component {
+class UnComment extends Component {
     constructor(props) {
     super (props)
     this.state = {  
@@ -15,11 +15,11 @@ class CommentsComp extends Component {
   return (
     <View style= {styles.comento}>
         <Text style= {styles.owner}>
-            {this.props.comentario.owner}
+            {this.props.owner}
         </Text>
 
         <Text style= {styles.comentario}>
-            {this.props.comentario.comment}
+            {this.props.comment}
         </Text>
         
     </View>
@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
     },
     comentario: {
     
-    }
+    },
+    
 })
  
-export default CommentsComp
+export default UnComment
