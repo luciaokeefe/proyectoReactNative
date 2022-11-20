@@ -8,7 +8,7 @@ class UnComment extends Component {
     constructor(props) {
     super (props)
     this.state = {  
-        commentI: []
+        
     }}
 
     render () {

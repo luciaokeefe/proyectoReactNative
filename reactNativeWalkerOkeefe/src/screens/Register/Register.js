@@ -1,7 +1,11 @@
 import { Text, View, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
 import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
+import * as ImagePicker from 'expo-image-picker'
+import { AntDesign } from '@expo/vector-icons';
 import Camara from '../../components/Camara/Camara'
+import {storage} from '../../firebase/config'
+
 
 class Register extends Component {
 
@@ -11,36 +15,61 @@ class Register extends Component {
             email: '',
             password: '',
             error: '',
-            restaurant: "",
-            fotoUrl: "",
-            estiloComida: "",
-            mostrarCamara: false
-
+            restaurant: '',
+            estiloComida: '',
+            fotoUrl: '',
+            mostrarCamara: false,
         }
     }
 
     registrar(email, pass) {
-        if(this.state.restaurant !== "" && this.state.estiloComida !== ""){
+        if (this.state.restaurant !== "" && this.state.estiloComida !== "") {
             auth.createUserWithEmailAndPassword(email, pass)
-            .then(() => {
-                db.collection("users").add({
-                    owner: auth.currentUser.email,
-                    restaurant: this.state.restaurant,
-                    estiloComida: this.state.estiloComida,
+                .then(() => {
+                    db.collection("users").add({
+                        owner: auth.currentUser.email,
+                        restaurant: this.state.restaurant,
+                        estiloComida: this.state.estiloComida,
+                        foto: this.state.fotoUrl
 
-                }).then(() => this.props.navigation.navigate('Login'))
-            })
-            .catch(err => this.setState({ error: err.message }))
+                    }).then(() => this.props.navigation.navigate('Login'))
+                })
+                .catch(err => this.setState({ error: err.message }))
 
         } else {
 
-            this.setState (
+            this.setState(
                 {
                     error: "es obligatorio llenar todos los campos"
                 }
             )
         }
-       
+    }
+
+    cuandoSubaLaFoto(url) {
+        this.setState({
+            fotoUrl: url,
+            mostrarCamara: false
+        })
+    }
+
+    subirfoto() {
+        ImagePicker.launchImageLibraryAsync()
+            .then(resp => {
+                fetch(resp.uri)
+                    .then(data => data.blob())
+                    .then(img => {
+                        const ref = storage.ref(`foto/${Date.now()}.jpg`)
+                        ref.put(img)
+                            .then(() => {
+                                ref.getDownloadURL()
+                                    .then(url => {
+                                        this.setState({ fotoUrl: url })
+                                    }
+                                    )
+                            })
+                    }).catch(err => console.log(err))
+            }).catch(err => console.log(err))
     }
 
     render() {
@@ -79,22 +108,28 @@ class Register extends Component {
                         style={styles.input}
                     />
 
-                    {/* <View>
-                        {this.state.mostrarCamara ?
-                            <TouchableOpacity onPress={() => this.enviarPost(this.state.description)}>
-                                <Text>Sacar foto de perfil</Text>
-                            </TouchableOpacity>
-                            :
-                            <Camara
-                                cuandoSubaLaFoto={(url) => this.cuandoSubaLaFoto(url)}
-                            />
-                        }
+                   {/*  <View style={styles.fotoPerfil}>
+                        <TouchableOpacity onPress={() => this.subirfoto()}>
+                            <AntDesign name="picture" size={60} color="black" />
+                        </TouchableOpacity>
+                        <Text style={styles.botton}>Elija su foto de perfil</Text>
                     </View> */}
+
+                    {
+                        this.state.mostrarCamara ?
+                            <View>
+                                <Camara cuandoSubaLaFoto={(url) => this.cuandoSubaLaFoto(url)} />
+                            </View>
+                            :
+                            <TouchableOpacity onPress={() => this.setState({ mostrarCamara: true })}>
+                                <Text style={styles.botonFoto} > Tomar foto de perfil</Text>
+                            </TouchableOpacity>
+                    }
 
 
                     <View>
 
-                        <TouchableOpacity onPress={() => this.registrar(this.state.email, this.state.password)}>
+                        <TouchableOpacity onPress={() => this.registrar(this.state.email, this.state.password, this.state.fotoUrl)}>
                             <Text>Registrar usuario</Text>
                         </TouchableOpacity>
 
@@ -125,7 +160,26 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1
-    }
+    },
+    fotoPerfil: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        flex: 1,
+        width: '50%',
+        alignItems: 'center',
+        justifyContent: 'space-around'
+    },
+    botonFoto: {
+        fontFamily: 'arial',
+        fontSize: 14,
+        textAlign: 'center',
+        margin: 10,
+        backgroundColor: 'white',
+
+        textAlign: 'center',
+        padding: 5
+    },
 })
 
 export default Register

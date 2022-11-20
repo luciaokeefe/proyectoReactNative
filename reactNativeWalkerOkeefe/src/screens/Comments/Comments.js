@@ -21,7 +21,6 @@ class Comments extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
     db.collection('posts')
       .doc(this.props.route.params.id)
       .onSnapshot(doc => {
@@ -31,6 +30,7 @@ class Comments extends Component {
         this.setState({
           allComments: data
         })
+        
 
       });
 
@@ -86,16 +86,19 @@ class Comments extends Component {
 
 
         {
-          this.state.allComments !== null ?
+          this.state.allComments == 0 ?
+          <Text>Aún no hay comentarios</Text>:
+
             <FlatList style={styles.flatList}
               data={this.state.allComments}
               keyExtractor={(item) => item.createdAt.toString()}
               renderItem={({ item }) => <UnComment {...this.props} comment={item.comment} owner={item.owner} />}
-            /> :
+            /> 
 
-            <Text>Aún no hay comentarios</Text>
-
+            
         }
+
+        {console.log(this.state.allComments)}
 
 
 

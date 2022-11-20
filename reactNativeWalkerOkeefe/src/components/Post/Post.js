@@ -12,8 +12,8 @@ class Post extends Component {
             miPosteo: false,
             miLike: false,
             contadorLikes: props.data.likes.length,
-          
-            
+
+
         }
     }
 
@@ -78,15 +78,19 @@ class Post extends Component {
                         resizeMode='contain' />
                 </View>
 
-                <View style={styles.container4}>
-                    <View>
-                        <Text style={styles.subtitle}>Descripcion: {this.props.data.description}</Text>
-                    </View>
+                <View style={styles.container1}>
+                    {this.props.data.description !== '' ?
+                        <View>
+                            <Text style={styles.subtitle}>Descripcion: {this.props.data.description}</Text>
+                        </View>:
+                        <Text> No hay descripcion</Text>
+                    }
+
                 </View>
-                
 
 
-                <View>
+
+                <View style={styles.like}>
                     <Text>{this.state.contadorLikes}</Text>
                     {
                         this.state.miLike ?
@@ -98,18 +102,18 @@ class Post extends Component {
                                 <FontAwesome name='heart-o' color='red' size={32} />
                             </TouchableOpacity>
                     }
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', {id: this.props.id})}>
-                    <FontAwesome name="comments" size={24} color="black" />
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', { id: this.props.id })}>
+                        <FontAwesome name="comments" size={24} color="black" />
                     </TouchableOpacity>
 
                 </View>
-               
+
 
                 <View>
                     {
                         this.state.miPosteo ?
                             <TouchableOpacity onPress={() => this.eliminarPost()}>
-                                <Text style={styles.agregar}>BORRAR POSTEO</Text>
+                                <Text style={styles.borrar}>BORRAR POSTEO</Text>
                             </TouchableOpacity> : ''
                     }
                 </View>
@@ -138,46 +142,42 @@ const styles = StyleSheet.create({
 
     },
 
-    container1: {
-        justifyContent: 'left',
-        backgroundColor: 'white',
-        color: 'black',
-        marginBottom: 30,
-        width: '100%',
-    },
-
-    container2: {
-        flex: 3,
-        margintop: 50,
-
-    },
-
-    // foto:{
-    //     marginTop:50,
-    //     height:200,
-    //     width:200
-    // },
-
     subtitle: {
         fontWeight: 700,
         color: 'black',
 
     },
-    image: {
-        height: 400,
-        width: 400,
-        border: 'black',
 
+    image: {
+        height: 265,
+        width: 273,
+        border: 'black',
+        marginBottom: 30,
 
     },
 
-    agregar: {
-        color: 'black',
+    borrar: {
+        color: 'white',
+        fontFamily: 'arial',
+        fontSize: 14,
+        textAlign: 'center',
+        margin: 10,
+        backgroundColor: 'rrgb(255,61,61)',
+        textAlign: 'center',
+        padding: 5
+        
     },
 
     descripcion: {
         color: 'black',
     },
+
+    like: {
+        justifyContent: 'left',
+
+
+    },
+
 
 
 })

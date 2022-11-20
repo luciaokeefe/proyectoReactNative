@@ -4,9 +4,9 @@ import React from 'react'
 import Home from '../screens/Home/Home'
 import Posts from "../screens/Posts/Posts"
 import Profile from "../screens/Profile/Profile"
-import { Foundation } from '@expo/vector-icons'; 
-import { FontAwesome } from '@expo/vector-icons'; 
-import { Ionicons } from '@expo/vector-icons'; 
+import Buscador from '../screens/Buscador/Buscador'
+import { Foundation, FontAwesome, Ionicons } from '@expo/vector-icons'; 
+
 
 
 
@@ -29,6 +29,11 @@ export default function TabNavigation() {
           tabBarIcon: () => <Ionicons name="person" size={24} color="black" />,
           headerShown:false
         }}/>
+
+      <Tab.Screen name={'Buscador'} component={Buscador} options={{
+            tabBarIcon: () => <FontAwesome name="search" size={24} color="black" />,
+            headerShown:false
+        }} />
 
     </Tab.Navigator>
   )
