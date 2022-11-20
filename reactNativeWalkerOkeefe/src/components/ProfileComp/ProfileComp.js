@@ -6,7 +6,8 @@ import {FontAwesome} from '@expo/vector-icons'
 import {storage} from '../../firebase/config'
 
 
-class miPerfil extends Component {
+
+class ProfileComp extends Component {
 
     constructor(props){
         super(props)
@@ -74,4 +75,4 @@ const styles = StyleSheet.create({
     }
     )
 
-export default miPerfil
+export default ProfileComp
