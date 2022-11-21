@@ -30,7 +30,8 @@ class Register extends Component {
                         owner: auth.currentUser.email,
                         restaurant: this.state.restaurant,
                         estiloComida: this.state.estiloComida,
-                        foto: this.state.fotoUrl
+                        foto: this.state.fotoUrl,
+                        contraseña: this.state.password
 
                     }).then(() => this.props.navigation.navigate('Login'))
                 })
@@ -129,7 +130,7 @@ class Register extends Component {
 
                     <View>
 
-                        <TouchableOpacity onPress={() => this.registrar(this.state.email, this.state.password, this.state.fotoUrl)}>
+                        <TouchableOpacity onPress={() => this.registrar(this.state.email, this.state.password, this.state.fotoUrl, this.state.restaurant)}>
                             <Text>Registrar usuario</Text>
                         </TouchableOpacity>
 
