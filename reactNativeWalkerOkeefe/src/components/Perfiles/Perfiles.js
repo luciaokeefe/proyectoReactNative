@@ -4,12 +4,13 @@ import {db, auth} from '../../firebase/config'
 import firebase from 'firebase'
 import {FontAwesome} from '@expo/vector-icons'
 
-class ProfileComp extends Component {
+
+class Perfiles extends Component {
 
     constructor(props){
         super(props)
         this.state = {
-            fotoSubida: "", 
+            
         }
     }
     componentDidMount(){
@@ -17,36 +18,24 @@ class ProfileComp extends Component {
 
 
 render() {
-    console.log(this.props.user)
     return (
         <View style={styles.perfil}>
-            
-            <View style={styles.parte}>
 
-        {/* <Image style={styles.image} 
-                source={{uri: this.props.user.foto}}
-                resizeMode='cover'/> */}
-                
-        </View>
-                
         <View style={styles.pub}>
         <Text >{this.props.mail}</Text>
         </View>
 
-        
-
         <View style={styles.pub}>
-        <Text style={styles.subtitle}> Publicaciones: {this.props.nPosts}</Text>
+        <Text style={styles.subtitle}> Publicaciones: {this.props.nPosts} </Text>
         </View>
 
         <View style={styles.pub}>
-        <Text>Restaurant: {this.props.user.restaurant}</Text>
+        <Text style={styles.subtitle}> Tipo comida: {this.props.comida} </Text>
         </View>
 
         <View style={styles.pub}>
-        <Text>Tipo de comida: {this.props.user.estiloComida}</Text>
+        <Text style={styles.subtitle}> Restaurant: {this.props.restaurant} </Text>
         </View>
-
         </View>
 
         
@@ -56,14 +45,12 @@ render() {
 
 const styles = StyleSheet.create({
     perfil:{
-        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        border: 100,
+        margin: 10,
     },
     own:{
-        margin: 10,
-
+        marginTop: 10,
     },
     pub:{
         alignItems: 'center',
@@ -72,21 +59,9 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 
-    image:{
-        height: 50,
-        width: 50,
-        borderRadius: 100,
-        justifyContent: 'center',
-        alignItems: 'center',
-      },
+   
 
-
-      parte:{
-         alignItems: 'center',
-      },
-
- 
     }
     )
 
-export default ProfileComp
+export default Perfiles

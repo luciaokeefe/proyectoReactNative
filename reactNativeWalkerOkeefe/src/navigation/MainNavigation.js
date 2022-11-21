@@ -8,6 +8,7 @@ import TabNavigation from './TabNavigation'
 import { auth } from '../firebase/config'
 import Comments from '../screens/Comments/Comments'
 import Profile from '../screens/Profile/Profile'
+import PerfilesScreen from '../screens/PerfilesScreen/PerfilesScreen'
 
 
 const Stack = createNativeStackNavigator() //estamos implementando la nevegacion en React (es el paso 3 de la implemetación)
@@ -58,7 +59,10 @@ class MainNavigation extends Component {
                         name='Profile'
                         component={Profile}
                         unmountONBlur= {true}
-
+                    />
+                    <Stack.Screen
+                        name='PerfilesScreen'
+                        component={PerfilesScreen}
                     />
 
               </Stack.Navigator>

@@ -67,11 +67,21 @@ class Post extends Component {
             .catch(err => console.log(err))
     }
 
- 
+
 
     render() {
         return (
             <View style={styles.container}>
+
+                <View style={styles.container1}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate(
+                        'PerfilesScreen',
+                        { email: this.props.data.owner }
+                    )}>
+                        <Text style={styles.textProfile}>{this.props.data.owner}</Text>
+                    </TouchableOpacity>
+
+                </View>
 
                 <View >
                     <Image style={styles.image}
@@ -79,11 +89,12 @@ class Post extends Component {
                         resizeMode='contain' />
                 </View>
 
+
                 <View style={styles.container1}>
                     {this.props.data.description !== '' ?
                         <View>
                             <Text style={styles.subtitle}>Descripcion: {this.props.data.description}</Text>
-                        </View>:
+                        </View> :
                         <Text> No hay descripcion</Text>
                     }
 
@@ -166,7 +177,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rrgb(255,61,61)',
         textAlign: 'center',
         padding: 5
-        
+
     },
 
     descripcion: {
