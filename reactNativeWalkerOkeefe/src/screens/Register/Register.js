@@ -4,7 +4,7 @@ import { auth, db } from '../../firebase/config'
 import * as ImagePicker from 'expo-image-picker'
 import { AntDesign } from '@expo/vector-icons';
 import Camara from '../../components/Camara/Camara'
-import {storage} from '../../firebase/config'
+import { storage } from '../../firebase/config'
 
 
 class Register extends Component {
@@ -53,7 +53,7 @@ class Register extends Component {
         })
     }
 
-    subirfoto() {
+   /*  subirfoto() {
         ImagePicker.launchImageLibraryAsync()
             .then(resp => {
                 fetch(resp.uri)
@@ -70,7 +70,7 @@ class Register extends Component {
                             })
                     }).catch(err => console.log(err))
             }).catch(err => console.log(err))
-    }
+    } */
 
     render() {
         return (
@@ -108,24 +108,24 @@ class Register extends Component {
                         style={styles.input}
                     />
 
-                   {/*  <View style={styles.fotoPerfil}>
+                    {/*  <View style={styles.fotoPerfil}>
                         <TouchableOpacity onPress={() => this.subirfoto()}>
                             <AntDesign name="picture" size={60} color="black" />
                         </TouchableOpacity>
                         <Text style={styles.botton}>Elija su foto de perfil</Text>
                     </View> */}
-
+                   
                     {
                         this.state.mostrarCamara ?
                             <View>
-                                <Camara cuandoSubaLaFoto={(url) => this.cuandoSubaLaFoto(url)} />
+                                <Camara  cuandoSubaLaFoto={(url)=> this.cuandoSubaLaFoto(url)} style={{ width: "40vw", heigth: "40vh", alignItems: 'center' }} />
                             </View>
                             :
                             <TouchableOpacity onPress={() => this.setState({ mostrarCamara: true })}>
                                 <Text style={styles.botonFoto} > Tomar foto de perfil</Text>
                             </TouchableOpacity>
                     }
-
+                   
 
                     <View>
 
@@ -158,6 +158,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 32
     },
+    camara:{
+        flex: 1
+    }, 
     input: {
         borderWidth: 1
     },

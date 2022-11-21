@@ -11,52 +11,43 @@ class Buscador extends Component {
         super(props)
         this.state = {
             users: [],
-            results: [],
             busqueda: '',
             loading: true
+
         }
 
     }
 
     //aca tengo que poner el array con todos los usuarios posibles
     componentDidMount() {
-        db.collection('users').onSnapshot(docs => {
-            let usuarios = []
+        db.collection('users').limit(5).onSnapshot(docs => {
+            let misUsuarios = []
             docs.forEach(doc => {
-                usuarios.push({
+                misUsuarios.push({
                     id: doc.id,
                     data: doc.data(),
                 })
             })
             this.setState({
-                users: usuarios,
-
-
+                users: misUsuarios,
             })
-
         })
 
     }
 
     buscar(text) {
-        let usersFilter = this.state.users.filter(elm => 
+
+        let usersFilter = this.state.users.filter(elm =>
             elm.data.restaurant.toUpperCase().includes(text.toUpperCase()))
 
         this.setState({
             user: text,
-            users: usersFilter, 
+            users: usersFilter,
             loading: false
         })
-
+        console.log(usersFilter);
     }
 
-    /*     irAPerfil(item){
-            if (item.data.owner === auth.currentUser.email) {
-                this.props.navigation.navigate('MiPerfil')
-            } else {
-                this.props.navigation.navigate('Perfil', { email: item.data.owner })
-            }
-        } */
 
 
     render() {
@@ -68,11 +59,9 @@ class Buscador extends Component {
 
                 <View style={styles.containertodo}>
 
-                    <TextInput
-                        style={styles.buscador}
-                        keyboardType='default'
+                    <TextInput style={styles.buscador}
                         onChangeText={text => this.setState({ busqueda: text })}
-                        placeholder='Ingresá el restaurant que querés buscar'
+                        placeholder='Ingrese su busqueda'
                         value={this.state.busqueda}>
                     </TextInput>
 
@@ -82,33 +71,28 @@ class Buscador extends Component {
                         style={{ marginLeft: 1 }}
                     />
 
-
                     <TouchableOpacity onPress={() => this.buscar(this.state.busqueda)}>
                         <Text style={styles.buscar}> Buscar</Text>
                     </TouchableOpacity>
-
-                    <ActivityIndicator size='small' color='white' />
-
-
+                    
                 </View>
 
                 <View style={styles.resultados}>
-                    {this.state.loading ?
-                        '' :
+                        {this.state.loading ? '' :
+                            <FlatList
+                                data={this.state.users}
+                                keyExtractor={(item) => item.id}
+                                renderItem={({ item }) =>
 
-                        <FlatList
-                            data={this.state.users}
-                            keyExtractor={(item) => item.id}
-                            renderItem={({ item }) => <TouchableOpacity onPress={() => this.props.navigation.navigate(
-                                'OtroPerfil',
-                                { email: item.data.owner }
-                            )}>
-                                <Text style={styles.user} >{item.data.owner} </Text> </TouchableOpacity>}
-                        />
-                    }
+                                    <TouchableOpacity onPress={() => this.props.navigation.navigate ('OtroPerfil',  {email:item.data.owner, restaurant:item.data.restaurant} )}>
+                                        <Text style={styles.user}>{item.data.restaurant}</Text>
+                                        {/* agregar que aparezca la imagen al lado del usuario */}
+                                    </TouchableOpacity>}
+                            />
+                        }
 
-                </View>
 
+                    </View>
             </>
         )
     }
@@ -144,8 +128,7 @@ const styles = StyleSheet.create({
         padding: 10,
         fontSize: 15,
         borderRadius: 5,
-        backgroundColor: "rgb(148, 5, 245)"
-    },
+        backgroundColor: "#d9dbda"},
 
 
     buscador: {
@@ -171,6 +154,20 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: '30px',
     },
+    textbusc:{
+        color: "rgb(148, 5, 245)",
+        textAlign: 'center', 
+        fontSize: '30px',
+    },
+    resultados:{
+        flex: 1,
+        justifyContent: "flex-start",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        flexDirection: "row",
+        backgroundColor: 'rgb(255,61,61)',
+        borderWidth: 15,
+        borderColor: 'rgb(255,61,61)'}, 
 
     imagebusc: {
         height: 60,

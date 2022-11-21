@@ -31,7 +31,7 @@ class Posts extends Component {
 
     cuandoSubaLaFoto(url){
         this.setState({
-            fotoUrl:url,
+            fotoUrl: url,
             mostrarCamara:false
         })
     }
