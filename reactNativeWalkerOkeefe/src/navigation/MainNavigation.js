@@ -58,7 +58,6 @@ class MainNavigation extends Component {
                         name='Profile'
                         component={Profile}
                         unmountONBlur= {true}
-
                     />
 
               </Stack.Navigator>
