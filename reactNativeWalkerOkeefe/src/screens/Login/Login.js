@@ -36,13 +36,13 @@ class Login extends Component {
             <Text style={styles.text}>Login</Text>
             <View>
                 <TextInput
-                 style={ styles.input}
+                 style={ styles.campo}
                  onChangeText={ text => this.setState( {email:text} )}
                  placeholder='Ingresa tu email'
                  value={this.state.email}
                 />
                 <TextInput
-                 style={ styles.input} 
+                 style={ styles.campo} 
                  onChangeText={ text => this.setState( {password:text} )}
                  placeholder='Ingresa tu contraseña'
                  value={this.state.password}
@@ -78,11 +78,16 @@ const styles = StyleSheet.create({
         
 
     },
-    input:{
-        borderWidth:1,
-        
-        
-    }, 
+    campo:{
+        backgroundColor: 'white',
+        fontFamily: 'arial',
+        fontSize: 14,
+        margin: 8,
+        borderRadius: 10,
+        textAlign: 'left',
+        color: 'rgb(115, 115, 115)',
+        padding: 5
+    },
     login:{
         flex:1, 
         paddingTop:4, 

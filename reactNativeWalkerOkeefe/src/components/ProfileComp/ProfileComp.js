@@ -12,9 +12,6 @@ class ProfileComp extends Component {
             fotoSubida: "", 
         }
     }
-    componentDidMount(){
-    }
-
 
 render() {
     console.log(this.props.user)

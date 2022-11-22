@@ -56,18 +56,23 @@ class PerfilesScreen extends Component {
                 {
                     this.state.loading ? <Text>Cargando...</Text> : <>
                         <View style={styles.perfil}>
-                            <Perfiles mail={this.state.usuario.owner} comida={this.state.usuario.estiloComida} restaurant= {this.state.usuario.restaurant} nPosts={this.state.susPosts.length} />
+                            <Perfiles mail={this.state.usuario.owner} comida={this.state.usuario.estiloComida} restaurant={this.state.usuario.restaurant} nPosts={this.state.susPosts.length} />
 
                         </View>
 
                         <View
                             style={styles.container}
                         >
-                            <FlatList
-                                data={this.state.susPosts}
-                                keyExtractor={(item) => item.id.toString()}
-                                renderItem={({ item }) => <Post navigation={this.props.navigation} id={item.id} data={item.data} />}
-                            />
+
+                            {this.state.susPosts > 0 ?
+                                <FlatList
+                                    data={this.state.susPosts}
+                                    keyExtractor={(item) => item.id.toString()}
+                                    renderItem={({ item }) => <Post navigation={this.props.navigation} id={item.id} data={item.data} />}
+                                /> :
+                                <Text> No hay posteos</Text>
+                            }
+
                         </View>
                     </>
                 }

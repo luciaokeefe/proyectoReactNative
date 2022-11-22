@@ -33,7 +33,7 @@ class Camara extends Component {
 
     aceptarFoto(url){
         fetch(url)
-        .then(imagenEnBinario => imagenEnBinario.blob())
+        .then(res => res.blob())
         .then(imagenOk =>{
             const ref = storage.ref(`fotos/${Date.now()}.jpg`)
             ref.put(imagenOk)

@@ -29,7 +29,8 @@ class Profile extends Component {
                     })
                 })
             })
-            
+
+
         db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(docs => {
             let misPosteos = []
             docs.forEach(doc => {
@@ -42,7 +43,7 @@ class Profile extends Component {
                 myPosts: misPosteos,
             })
         })
-    
+
     }
     logOut() {
         auth.signOut()
@@ -53,11 +54,9 @@ class Profile extends Component {
     render() {
         console.log(this.state)
         return (
-
             <>
                 <View style={styles.header}>
 
-                    
                     {/* <Image style={styles.imagehome}
              source={require('../../../assets/iconoWP.png')}
              resizeMode= 'contain'/> */}
@@ -66,7 +65,6 @@ class Profile extends Component {
 
                 <View style={styles.perfil}>
                     <ProfileComp nPosts={this.state.myPosts.length} mail={auth.currentUser.email} user={this.state.datos} />
-
                 </View>
 
                 <View
@@ -82,10 +80,13 @@ class Profile extends Component {
                 </View>
 
                 <View style={styles.cerrar}>
-                        <TouchableOpacity onPress={() => this.logOut()} style={styles.button}>
-                            <Text style={styles.cerrar}> Cerrar Sesion </Text>
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity onPress={() => this.logOut()} style={styles.button}>
+                        <Text style={styles.cerrar}> Cerrar Sesion </Text>
+                    </TouchableOpacity>
+                </View>
+
+                
+
             </>
         )
     }
@@ -118,9 +119,9 @@ const styles = StyleSheet.create({
         height: '110',
         padding: 14,
     },
-    textHeader:{
+    textHeader: {
         color: "white",
-        textAlign: 'center', 
+        textAlign: 'center',
         fontSize: '30px',
     },
 
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
     },
 
     cerrar: {
-        color: "rgb(148, 5, 245)",
+        color: 'rgb(255,61,61)',
         textAlign: 'right',
         fontSize: 17,
 

@@ -39,9 +39,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
     
     },
-    comentario: {
-    
-    },
+
     
 })
  

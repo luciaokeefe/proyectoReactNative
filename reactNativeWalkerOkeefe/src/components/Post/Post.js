@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 import firebase from 'firebase'
 import { FontAwesome } from '@expo/vector-icons'
+import { FlatList } from 'react-native-web'
+import UnComment from '../UnComment/UnComment'
 
 class Post extends Component {
 
@@ -97,9 +99,7 @@ class Post extends Component {
                         </View> :
                         <Text> No hay descripcion</Text>
                     }
-
                 </View>
-
 
 
                 <View style={styles.like}>
@@ -117,7 +117,22 @@ class Post extends Component {
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', { id: this.props.id })}>
                         <FontAwesome name="comments" size={24} color="black" />
                     </TouchableOpacity>
+                </View>
 
+                <View style= {styles.commentsTitle}> 
+                <Text style={styles.subtitle}> Comentarios: </Text>
+                </View>
+
+               
+
+                <View style={styles.container1}> 
+                {this.props.data.comments <= 0 ? <Text> No hay comentarios</Text> :
+                    <FlatList style={styles.flatList}
+                    data={this.props.data.comments.slice(0,4)}
+                    keyExtractor={(item) => item.createdAt.toString()}
+                        renderItem={({ item }) => <UnComment {...this.props} comment={item.comment} owner={item.owner} />}
+                      />                     
+                    }
                 </View>
 
 
@@ -153,10 +168,16 @@ const styles = StyleSheet.create({
 
 
     },
+    flatList: {
+        backgroundColor: 'rgb(224,224,224)'},
 
     subtitle: {
         fontWeight: 700,
         color: 'black',
+
+    },
+    commentsTitle:{
+        padding: 10
 
     },
 
@@ -182,6 +203,7 @@ const styles = StyleSheet.create({
 
     descripcion: {
         color: 'black',
+        margin: 10,
     },
 
     like: {

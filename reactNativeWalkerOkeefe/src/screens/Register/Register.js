@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { auth, db } from '../../firebase/config'
 import * as ImagePicker from 'expo-image-picker'
 import { AntDesign } from '@expo/vector-icons';
+import { Feather } from '@expo/vector-icons';
 import Camara from '../../components/Camara/Camara'
 import { storage } from '../../firebase/config'
 
@@ -19,6 +20,7 @@ class Register extends Component {
             estiloComida: '',
             fotoUrl: '',
             mostrarCamara: false,
+
         }
     }
 
@@ -54,7 +56,7 @@ class Register extends Component {
         })
     }
 
-   /*  subirfoto() {
+    subirfoto() {
         ImagePicker.launchImageLibraryAsync()
             .then(resp => {
                 fetch(resp.uri)
@@ -71,23 +73,23 @@ class Register extends Component {
                             })
                     }).catch(err => console.log(err))
             }).catch(err => console.log(err))
-    } */
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text>Register</Text>
+                <Text style={styles.registerTitle}>Register</Text>
                 <View>
 
                     <TextInput
-                        style={styles.input}
+                        style={styles.campo}
                         placeholder='Escribi tu email'
                         onChangeText={text => this.setState({ email: text })}
                         value={this.state.email}
                     />
 
                     <TextInput
-                        style={styles.input}
+                        style={styles.campo}
                         placeholder='Escribi tu password'
                         onChangeText={text => this.setState({ password: text })}
                         value={this.state.password}
@@ -95,7 +97,7 @@ class Register extends Component {
                     />
 
                     <TextInput
-                        style={styles.input}
+                        style={styles.campo}
                         placeholder='Nombre Restaurant'
                         onChangeText={text => this.setState({ restaurant: text })}
                         value={this.state.restaurant}
@@ -106,32 +108,41 @@ class Register extends Component {
                         onChangeText={text => this.setState({ estiloComida: text })}
                         value={this.state.estiloComida}
                         keyboardType='default'
-                        style={styles.input}
+                        style={styles.campo}
                     />
 
-                    {/*  <View style={styles.fotoPerfil}>
+                    <View style={styles.subirFotoPerfil}>
                         <TouchableOpacity onPress={() => this.subirfoto()}>
-                            <AntDesign name="picture" size={60} color="black" />
+                            <AntDesign name="picture" size={40} color="black" />
+                            
                         </TouchableOpacity>
-                        <Text style={styles.botton}>Elija su foto de perfil</Text>
-                    </View> */}
-                   
+                        
+                    </View>
+
                     {
                         this.state.mostrarCamara ?
                             <View>
-                                <Camara  cuandoSubaLaFoto={(url)=> this.cuandoSubaLaFoto(url)} style={{ width: "40vw", heigth: "40vh", alignItems: 'center' }} />
+                                <Camara cuandoSubaLaFoto={(url) => this.cuandoSubaLaFoto(url)} />
                             </View>
                             :
-                            <TouchableOpacity onPress={() => this.setState({ mostrarCamara: true })}>
-                                <Text style={styles.botonFoto} > Tomar foto de perfil</Text>
-                            </TouchableOpacity>
-                    }
-                   
+                            <View style={styles.subirFotoPerfil} >
+                                <TouchableOpacity onPress={() => this.setState({ mostrarCamara: true })}>
+                                    <Feather name="camera" size={40} color="black" />
+                                    
 
-                    <View>
+                                </TouchableOpacity>
+                            </View>}
+
+                    {this.state.fotoUrl != '' ?
+                        <View style={styles.contenedorMensaje}>
+                            <Text style={styles.mensaje}> La imágen se subió correctamente </Text>     </View> : ''
+
+                    }
+
+                    <View style={styles.botonRegistro}>
 
                         <TouchableOpacity onPress={() => this.registrar(this.state.email, this.state.password, this.state.fotoUrl, this.state.restaurant)}>
-                            <Text>Registrar usuario</Text>
+                            <Text style={styles.textoBotonRegistro}>Registrar usuario</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -159,16 +170,22 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingHorizontal: 32
     },
-    camara:{
-        flex: 1
-    }, 
-    input: {
-        borderWidth: 1
+    registerTitle: {
+        fontFamily: 'arial',
+        fontSize: 25,
+        margin: 10,
+        textAlign: 'center'
+
+
     },
-    fotoPerfil: {
+    camara: {
+        flex: 1
+    },
+ 
+    SubirFotoPerfil: {
         display: 'flex',
         flexWrap: 'wrap',
-        flexDirection: 'row',
+        flexDirection: 'column',
         flex: 1,
         width: '50%',
         alignItems: 'center',
@@ -184,6 +201,39 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 5
     },
+    mensaje: {
+        fontWeight: 700,
+        color: 'black'
+    },
+    contenedorMensaje: {
+        backgroundColor: "rgb(255,61,61)",
+        padding: 5,
+        textAlign: 'center'
+
+    },
+    botonRegistro: {
+        backgroundColor: "rgb(160,160,160)",
+        padding: 5,
+        margin: 10,
+        textAlign: 'center',
+        borderRadius: 10,
+
+    },
+
+    textoBotonRegistro: {
+        fontWeight: 700,
+        color: 'black'
+    },
+    campo:{
+        backgroundColor: 'white',
+        fontFamily: 'arial',
+        fontSize: 14,
+        margin: 8,
+        borderRadius: 10,
+        textAlign: 'left',
+        color: 'rgb(115, 115, 115)',
+        padding: 5
+    }
 })
 
 export default Register
