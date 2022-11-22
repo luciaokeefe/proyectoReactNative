@@ -11,7 +11,7 @@ class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            myPosts: [],
+            misPosteos: [],
             datos: {},
             id: '',
         }
@@ -19,27 +19,31 @@ class Profile extends Component {
 
 
     componentDidMount() {
+        console.log(auth.currentUser.email)
         db.collection('users')
             .where('owner', '==', auth.currentUser.email)
             .onSnapshot(docs => {
                 docs.forEach(doc => {
+                    console.log(doc)
                     this.setState({
                         id: doc.id,
                         datos: doc.data()
                     })
+                    
+            
                 })
             })
             
         db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(docs => {
-            let misPosteos = []
+            let PosteosAct = []
             docs.forEach(doc => {
-                misPosteos.push({
+                PosteosAct.push({
                     id: doc.id,
                     data: doc.data(),
                 })
             })
             this.setState({
-                myPosts: misPosteos,
+                misPosteos: PosteosAct,
             })
         })
     
@@ -64,8 +68,8 @@ class Profile extends Component {
                     <Text style={styles.textHeader}> The RestoApp </Text>
                 </View>
 
-                <View style={styles.perfil}>
-                    <ProfileComp nPosts={this.state.myPosts.length} mail={auth.currentUser.email} user={this.state.datos} />
+                <View style={styles.profile}>
+                    <ProfileComp cantidadPosts={this.state.misPosteos.length} mail={auth.currentUser.email} user={this.state.datos} />
 
                 </View>
 
@@ -73,7 +77,7 @@ class Profile extends Component {
                     style={styles.container}
                 >
                     <FlatList style={styles.flatList}
-                        data={this.state.myPosts}
+                        data={this.state.misPosteos}
                         keyExtractor={(item) => item.id.toString()}
                         renderItem={({ item }) => <Post navigation={this.props.navigation} id={item.id} data={item.data} />}
 
@@ -81,9 +85,9 @@ class Profile extends Component {
 
                 </View>
 
-                <View style={styles.cerrar}>
+                <View style={styles.logout}>
                         <TouchableOpacity onPress={() => this.logOut()} style={styles.button}>
-                            <Text style={styles.cerrar}> Cerrar Sesion </Text>
+                            <Text style={styles.logout}> Cerrar Sesion </Text>
                         </TouchableOpacity>
                     </View>
             </>
@@ -98,12 +102,6 @@ const styles = StyleSheet.create({
 
     flatList: {
         backgroundColor: 'rgb(224,224,224)'
-    },
-
-    subtitle: {
-        fontWeight: 700,
-        color: 'black',
-
     },
 
     button: {
@@ -130,26 +128,20 @@ const styles = StyleSheet.create({
 
     },
 
-    perfil: {
+    profile: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         color: "white",
         height: 80,
         marginTop: 20,
         justifyContent: 'center',
-        fontWeight: 'bold',
-
-
-
+        fontWeight: 'bold'
     },
 
-    cerrar: {
-        color: "rgb(148, 5, 245)",
+    logout: {
+        color: "rgb(255,61,61)",
         textAlign: 'right',
         fontSize: 17,
-
-
-
     }
 })
 

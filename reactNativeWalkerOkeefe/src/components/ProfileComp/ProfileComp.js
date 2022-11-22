@@ -19,9 +19,9 @@ class ProfileComp extends Component {
 render() {
     console.log(this.props.user)
     return (
-        <View style={styles.perfil}>
+        <View style={styles.profile}>
             
-            <View style={styles.parte}>
+            <View style={styles.bio}>
 
         {/* <Image style={styles.image} 
                 source={{uri: this.props.user.foto}}
@@ -29,21 +29,21 @@ render() {
                 
         </View>
                 
-        <View style={styles.pub}>
+        <View style={styles.bio}>
         <Text >{this.props.mail}</Text>
         </View>
 
         
 
-        <View style={styles.pub}>
-        <Text style={styles.subtitle}> Publicaciones: {this.props.nPosts}</Text>
+        <View style={styles.bio}>
+        <Text style={styles.subtitle}> Publicaciones: {this.props.cantidadPosts}</Text>
         </View>
 
-        <View style={styles.pub}>
+        <View style={styles.bio}>
         <Text>Restaurant: {this.props.user.restaurant}</Text>
         </View>
 
-        <View style={styles.pub}>
+        <View style={styles.bio}>
         <Text>Tipo de comida: {this.props.user.estiloComida}</Text>
         </View>
 
@@ -55,20 +55,15 @@ render() {
 }
 
 const styles = StyleSheet.create({
-    perfil:{
+    profile:{
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
         border: 100,
     },
-    own:{
-        margin: 10,
 
-    },
-    pub:{
-        alignItems: 'center',
-    },
-    lik:{
+    
+    bio:{
         alignItems: 'center'
     },
 
@@ -78,12 +73,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         justifyContent: 'center',
         alignItems: 'center',
-      },
-
-
-      parte:{
-         alignItems: 'center',
-      },
+      }
 
  
     }
