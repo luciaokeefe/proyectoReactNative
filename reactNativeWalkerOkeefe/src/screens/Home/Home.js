@@ -2,12 +2,14 @@ import { Text, View, FlatList, StyleSheet } from 'react-native'
 import React, { Component } from 'react'
 import { db, auth } from '../../firebase/config'
 import Post from "../../components/Post/Post"
+import { ActivityIndicator } from 'react-native-web'
 
 class Home extends Component {
     constructor() {
         super()
         this.state = {
-            allPosts: []
+            allPosts: [],
+            loading: true
         }
     }
 
@@ -27,7 +29,8 @@ class Home extends Component {
                 })
 
                 this.setState({
-                    allPosts: posteos
+                    allPosts: posteos,
+                    loading: false
                 })
             })
 
@@ -37,8 +40,10 @@ class Home extends Component {
 
     render() {
         return (
-
-            <View
+<> {
+    this.state.loading? <ActivityIndicator size= "large" color="green"/> :
+            
+             <View
                 style={styles.container}
             >
                 <View style={styles.header}>
@@ -46,12 +51,16 @@ class Home extends Component {
                     <Text style={styles.textHeader}> The RestoApp</Text>
                 </View>
 
+               
                 <FlatList style={styles.flatList}
                     data={this.state.allPosts}
                     keyExtractor={(item) => item.id.toString()}
-                    renderItem={({ item }) => <Post {...this.props} id={item.id} data={item.data} />} //Spread operator para pasarle las props de navegacion y poder navegar hacia comentarios desde post.
+                    renderItem={({ item }) => <Post {...this.props} id={item.id} data={item.data} />}
                 />
-            </View>
+            
+             </View>
+            }
+             </>
         )
     }
 }

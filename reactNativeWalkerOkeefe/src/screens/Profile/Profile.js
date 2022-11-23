@@ -33,7 +33,8 @@ class Profile extends Component {
             
                 })
             })
-            
+
+
         db.collection('posts').where('owner', '==', auth.currentUser.email).onSnapshot(docs => {
             let PosteosAct = []
             docs.forEach(doc => {
@@ -46,7 +47,7 @@ class Profile extends Component {
                 misPosteos: PosteosAct,
             })
         })
-    
+
     }
     logOut() {
         auth.signOut()
@@ -57,20 +58,17 @@ class Profile extends Component {
     render() {
         console.log(this.state)
         return (
-
             <>
                 <View style={styles.header}>
 
-                    
                     {/* <Image style={styles.imagehome}
              source={require('../../../assets/iconoWP.png')}
-             resizeMode= 'contain'/> */}
+             resizeMode= 'contain'/>  */}
                     <Text style={styles.textHeader}> The RestoApp </Text>
                 </View>
 
-                <View style={styles.profile}>
+                <View style={styles.perfil}>
                     <ProfileComp cantidadPosts={this.state.misPosteos.length} mail={auth.currentUser.email} user={this.state.datos} />
-
                 </View>
 
                 <View
@@ -116,9 +114,9 @@ const styles = StyleSheet.create({
         height: '110',
         padding: 14,
     },
-    textHeader:{
+    textHeader: {
         color: "white",
-        textAlign: 'center', 
+        textAlign: 'center',
         fontSize: '30px',
     },
 

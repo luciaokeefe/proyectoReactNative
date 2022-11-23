@@ -1,38 +1,35 @@
-import { Text, View, FlatList, StyleSheet, Image } from 'react-native'
+import { Text, View, FlatList, StyleSheet, Image} from 'react-native'
 import React, { Component } from 'react'
-import { db, auth } from '../../firebase/config'
+import {db, auth} from '../../firebase/config'
 import Post from '../../components/Post/Post'
 import Perfiles from '../../components/Perfiles/Perfiles'
-
+ 
 class PerfilesScreen extends Component {
-    constructor(props) {
+    constructor(props){
         super(props)
-        console.log(props);
-        this.state = {
-            usuario: {},
+        this.state={
+            usuario:{},
             susPosts: [],
             userId: props.route.params.id,
-            loading: true
+            loading:true
         }
     }
-
-    componentDidMount() {
+ 
+    componentDidMount(){
         db.collection('users').where('owner', '==', this.props.route.params.email)
-            //ya tengo claro que voy a recibir solo uno por eso despues no hago foreach
-            .onSnapshot(docs => { //solo tra un doc de regreso
-                docs.forEach(doc => {
-
-
-                    this.setState({ usuario: doc.data() })
-                })
-            })
-
+        .onSnapshot(docs =>{ 
+           docs.forEach(doc => {
+           
+            this.setState({usuario: doc.data()})
+           })
+        })
+       
         db.collection('posts').where('owner', '==', this.props.route.params.email).onSnapshot(docs => {
             let posts = []
             docs.forEach(doc => {
                 posts.push({
                     id: doc.id,
-                    data: doc.data(),
+                    data:doc.data(),
                 })
             })
             this.setState({
@@ -41,41 +38,47 @@ class PerfilesScreen extends Component {
             })
         })
     }
-
+ 
     render() {
-
+        
         return (
+ 
             <>
-                <View style={styles.header}>
-
-                    {/* <Image style={styles.imagehome}
-            source={require('../../../assets/iconoWP.png')}
-            resizeMode= 'contain'/> */}
-                    <Text style={styles.textHeader}> The RestoApp </Text>
-                </View>
-                {
-                    this.state.loading ? <Text>Cargando...</Text> : <>
-                        <View style={styles.perfil}>
-                            <Perfiles mail={this.state.usuario.owner} comida={this.state.usuario.estiloComida} restaurant= {this.state.usuario.restaurant} nPosts={this.state.susPosts.length} />
-
-                        </View>
-
-                        <View
-                            style={styles.container}
-                        >
-                            <FlatList
-                                data={this.state.susPosts}
-                                keyExtractor={(item) => item.id.toString()}
-                                renderItem={({ item }) => <Post navigation={this.props.navigation} id={item.id} data={item.data} />}
-                            />
-                        </View>
-                    </>
-                }
-            </>
+            <View style={styles.header}>
+ 
+            
+            <Text style={styles.textHeader}> The RestoApp </Text>
+    </View>
+ 
+   
+{
+    this.state.loading? <Text>Cargando...</Text>: <>
+    <View style={styles.perfil}>
+            <Perfiles mail={this.state.usuario.owner} comida={this.state.usuario.estiloComida} restaurant={this.state.usuario.restaurant} cantidadPosts={this.state.susPosts.length} />
+ 
+        </View>
+ 
+        <View
+        style={styles.container}
+        >
+            <FlatList
+                data={this.state.susPosts}
+                keyExtractor={(item)=> item.id.toString()}
+                renderItem={({item}) => <Post navigation={this.props.navigation} id={item.id} data={item.data}/>}
+               
+            />
+ 
+ 
+        </View>
+   
+    </>
+}
+     
+        </>
         )
     }
 }
-
+ 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -137,5 +140,5 @@ const styles = StyleSheet.create({
 
     }
 })
-
+ 
 export default PerfilesScreen

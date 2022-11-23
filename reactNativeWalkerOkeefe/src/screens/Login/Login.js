@@ -11,15 +11,25 @@ class Login extends Component {
         this.state = {
             email: '', 
             password: '', 
-            logueado: false 
+            logueado: false,
+            error: ""
     
         }
     }
 
     loguear(email, pass){
+
+       
         auth.signInWithEmailAndPassword(email, pass)
         .then( resp => this.props.navigation.navigate('TabNavigation'))
-        .catch(err => console.log(err))
+        .catch(err => {console.log(err) 
+            this.setState({
+                error: err.message,
+            })
+        })
+    
+
+      
     }
 
     componentDidMount(){
@@ -27,6 +37,8 @@ class Login extends Component {
             if(user !== null){
                 this.props.navigation.navigate('TabNavigation') // si es distintito a null el user, nos va redirigir a 'tabNavigation' 
             }
+
+            
         })
     }
 
@@ -36,13 +48,13 @@ class Login extends Component {
             <Text style={styles.text}>Login</Text>
             <View>
                 <TextInput
-                 style={ styles.input}
+                 style={ styles.campo}
                  onChangeText={ text => this.setState( {email:text} )}
                  placeholder='Ingresa tu email'
                  value={this.state.email}
                 />
                 <TextInput
-                 style={ styles.input} 
+                 style={ styles.campo} 
                  onChangeText={ text => this.setState( {password:text} )}
                  placeholder='Ingresa tu contraseña'
                  value={this.state.password}
@@ -62,6 +74,7 @@ class Login extends Component {
                         <Text>Registrate</Text>
                     </TouchableOpacity>
                 </View>
+                <Text style={styles.error}> {this.state.error} </Text>
             </View>
           </View>
         )
@@ -78,11 +91,16 @@ const styles = StyleSheet.create({
         
 
     },
-    input:{
-        borderWidth:1,
-        
-        
-    }, 
+    campo:{
+        backgroundColor: 'white',
+        fontFamily: 'arial',
+        fontSize: 14,
+        margin: 8,
+        borderRadius: 10,
+        textAlign: 'left',
+        color: 'rgb(115, 115, 115)',
+        padding: 5
+    },
     login:{
         flex:1, 
         paddingTop:4, 

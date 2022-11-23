@@ -12,9 +12,6 @@ class ProfileComp extends Component {
             fotoSubida: "", 
         }
     }
-    componentDidMount(){
-    }
-
 
 render() {
     console.log(this.props.user)
@@ -23,9 +20,9 @@ render() {
             
             <View style={styles.bio}>
 
-        {/* <Image style={styles.image} 
+            <Image style={styles.image} 
                 source={{uri: this.props.user.foto}}
-                resizeMode='cover'/> */}
+                resizeMode='cover'/>
                 
         </View>
                 

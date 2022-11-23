@@ -19,21 +19,21 @@ class Perfiles extends Component {
 
 render() {
     return (
-        <View style={styles.perfil}>
+        <View style={styles.profile}>
 
-        <View style={styles.pub}>
+        <View style={styles.bio}>
         <Text >{this.props.mail}</Text>
         </View>
 
-        <View style={styles.pub}>
-        <Text style={styles.subtitle}> Publicaciones: {this.props.nPosts} </Text>
+        <View style={styles.bio}>
+        <Text style={styles.subtitle}> Publicaciones: {this.props.cantidadPosts} </Text>
         </View>
 
-        <View style={styles.pub}>
-        <Text style={styles.subtitle}> Tipo comida: {this.props.comida} </Text>
+        <View style={styles.bio}>
+        <Text style={styles.subtitle}> Tipo Comida: {this.props.comida} </Text>
         </View>
 
-        <View style={styles.pub}>
+        <View style={styles.bio}>
         <Text style={styles.subtitle}> Restaurant: {this.props.restaurant} </Text>
         </View>
         </View>
@@ -44,22 +44,17 @@ render() {
 }
 
 const styles = StyleSheet.create({
-    perfil:{
+    profile:{
+        flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-around',
-        margin: 10,
-    },
-    own:{
-        marginTop: 10,
-    },
-    pub:{
-        alignItems: 'center',
-    },
-    lik:{
-        alignItems: 'center'
+        border: 100,
     },
 
-   
+    
+    bio:{
+        alignItems: 'center'
+    }
 
     }
     )
