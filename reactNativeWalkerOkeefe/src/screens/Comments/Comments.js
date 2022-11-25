@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
   },
   flatList: {
-    backgroundColor: 'rgba(130,40,98,0.23)'
+    backgroundColor: 'white'
   }
 })
 

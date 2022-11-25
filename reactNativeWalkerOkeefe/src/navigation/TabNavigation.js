@@ -1,4 +1,3 @@
-import { View, Text, StyleSheet} from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import React from 'react'
 import Home from '../screens/Home/Home'
@@ -6,9 +5,6 @@ import Posts from "../screens/Posts/Posts"
 import Profile from "../screens/Profile/Profile"
 import Buscador from '../screens/Buscador/Buscador'
 import { Foundation, FontAwesome, Ionicons } from '@expo/vector-icons'; 
-
-
-
 
 const Tab = createBottomTabNavigator()
 

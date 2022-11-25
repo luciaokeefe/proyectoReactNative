@@ -29,10 +29,7 @@ class UnComment extends Component {
 const styles = StyleSheet.create({
     comento: {
         flexDirection: 'row',
-        marginTop: 10,
-      
-      
-         
+        marginTop: 10,  
     },
     owner:{
     fontWeight: 'bold',

@@ -95,7 +95,7 @@ class Post extends Component {
                 <View style={styles.container1}>
                     {this.props.data.description !== '' ?
                         <View>
-                            <Text style={styles.subtitle}>Descripcion: {this.props.data.description}</Text>
+                            <Text style={styles.descripcion}>Descripcion: {this.props.data.description}</Text>
                         </View> :
                         <Text> No hay descripcion</Text>
                     }
@@ -114,24 +114,29 @@ class Post extends Component {
                                 <FontAwesome name='heart-o' color='red' size={32} />
                             </TouchableOpacity>
                     }
+
+
+                </View>
+
+                <View >
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('Comments', { id: this.props.id })}>
                         <FontAwesome name="comments" size={24} color="black" />
                     </TouchableOpacity>
                 </View>
 
-                <View style= {styles.commentsTitle}> 
-                <Text style={styles.subtitle}> Comentarios: </Text>
+                <View style={styles.commentsTitle}>
+                    <Text style={styles.comentarios}> Comentarios: </Text>
                 </View>
 
-               
 
-                <View style={styles.container1}> 
-                {this.props.data.comments <= 0 ? <Text> No hay comentarios</Text> :
-                    <FlatList style={styles.flatList}
-                    data={this.props.data.comments.slice(0,4)}
-                    keyExtractor={(item) => item.createdAt.toString()}
-                        renderItem={({ item }) => <UnComment {...this.props} comment={item.comment} owner={item.owner} />}
-                      />                     
+
+                <View style={styles.container1}>
+                    {this.props.data.comments <= 0 ? <Text> No hay comentarios</Text> :
+                        <FlatList style={styles.flatList}
+                            data={this.props.data.comments.slice(0, 4)}
+                            keyExtractor={(item) => item.createdAt.toString()}
+                            renderItem={({ item }) => <UnComment {...this.props} comment={item.comment} owner={item.owner} />}
+                        />
                     }
                 </View>
 
@@ -155,29 +160,35 @@ class Post extends Component {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'column',
-        padding: 40,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        margin: 50,
-        marginBottom: 10,
         backgroundColor: 'white',
-        marginTop: 20,
-        flex: 1,
-        borderRadius: 10,
+        alignItems: 'center',
+        borderRadius: 20,
+        margin: 20,
+        marginBottom: 5,
+        padding: 10
 
 
     },
+    textProfile: {
+        alignSelf: 'flex-start',
+        fontFamily: 'Arial',
+        fontSize: 18,
+        padding: 10,
+        color: 'black'
+    },
     flatList: {
-        backgroundColor: 'rgb(224,224,224)'},
+        backgroundColor: 'white'
+    },
 
-    subtitle: {
+    comentarios: {
         fontWeight: 700,
         color: 'black',
 
+
     },
-    commentsTitle:{
-        padding: 10
+    commentsTitle: {
+        padding: 10,
+
 
     },
 
@@ -202,18 +213,25 @@ const styles = StyleSheet.create({
     },
 
     descripcion: {
-        color: 'black',
-        margin: 10,
+        backgroundColor: 'rgb(255,61,61)',
+        fontFamily: 'arial',
+        fontSize: 14,
+        borderRadius: 10,
+        padding: 10,
+        margin: 5,
+        width: 200,
+        justifyContent: 'left',
+        color: 'rgb(51, 74, 82)'
     },
 
     like: {
-        justifyContent: 'left',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+        margin: 10
 
 
     },
-
-
-
+    
 })
 
 export default Post
